@@ -15,7 +15,7 @@ from draw import *
   with the name being used.
   ==================== """
 def first_pass( commands ):
-
+    print (commands)
     name = ''
     num_frames = 1
 
