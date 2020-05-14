@@ -1,5 +1,5 @@
 from subprocess import Popen, PIPE
-from os import remove, execlp
+from os import remove, fork, execlp
 
 #constants
 XRES = 500
@@ -91,7 +91,6 @@ def make_animation( name ):
     name_arg = 'anim/' + name + '*'
     name = name + '.gif'
     print('Saving animation as ' + name)
-    subprocess.call(["convert", "-delay", "1.7", name_arg, name])
-    # f = fork()
-    # if f == 0:
-    #     execlp('convert', 'convert', '-delay', '1.7', name_arg, name)
+    f = fork()
+    if f == 0:
+        execlp('convert', 'convert', '-delay', '1.7', name_arg, name)
