@@ -46,7 +46,17 @@ def first_pass( commands ):
   ===================="""
 def second_pass( commands, num_frames ):
     frames = [ {} for i in range(num_frames) ]
+    for c in commands:
+        if c['op'] == 'vary':
+            start_frame, end_frame, start_value, end_value = c['args']
+            knob = c['knob']
 
+            f = start_frame
+            d = (end_value - start_value) / (end_frame - start_frame)
+            while f < end_frame:
+                frames[f][knob] = start_value
+                start_value += d
+                f += 1
     return frames
 
 
