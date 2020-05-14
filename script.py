@@ -15,10 +15,19 @@ from draw import *
   with the name being used.
   ==================== """
 def first_pass( commands ):
-    print (commands)
+    num_frames = None
     name = ''
-    num_frames = 1
+    for c in commands:
+        if c['op'] == 'vary' and num_frames == None:
+            raise ('VARY FOUND BUT FRAME WAS NOT FOUND')
+        if c['op'] == "basename":
+            name = c['args'][0]
+        if c['op'] == "frames":
+            num_frames = int (c['args'][0])
 
+    if name == '':
+        name = 'default'
+        print ("Basename not found. Setting name to [default]")
     return (name, num_frames)
 
 """======== second_pass( commands ) ==========
