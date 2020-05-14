@@ -2,6 +2,7 @@ import mdl
 from display import *
 from matrix import *
 from draw import *
+import copy
 
 """======== first_pass( commands ) ==========
   Checks the commands array for any animation commands
@@ -53,9 +54,10 @@ def second_pass( commands, num_frames ):
 
             f = int (start_frame)
             d = (end_value - start_value) / (end_frame - start_frame)
-            while f < int (end_frame):
-                frames[f][knob] = start_value
-                start_value += d
+            knob_now = start_value
+            while f <= int (end_frame):
+                frames[f][knob] = knob_now
+                knob_now += d
                 f += 1
     return frames
 
@@ -111,7 +113,7 @@ def run(filename):
 
         for command in commands:
             knob = 1
-            
+
             print(command)
             c = command['op']
             args = command['args']
