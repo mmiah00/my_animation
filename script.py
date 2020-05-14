@@ -20,7 +20,6 @@ def first_pass( commands ):
     for c in commands:
         if c['op'] == 'vary' and num_frames == None:
             raise ('VARY FOUND BUT FRAME WAS NOT FOUND')
-	    return 
         if c['op'] == "basename":
             name = c['args'][0]
         if c['op'] == "frames":
@@ -96,23 +95,23 @@ def run(filename):
     (name, num_frames) = first_pass(commands)
     frames = second_pass(commands, num_frames)
 
-
-    tmp = new_matrix()
-    ident( tmp )
-
-    stack = [ [x[:] for x in tmp] ]
-    screen = new_screen()
-    zbuffer = new_zbuffer()
-    tmp = []
-    step_3d = 100
-    consts = ''
-    coords = []
-    coords1 = []
-
     frame = 0
-    knob = 1
     while frame < num_frames:
+        tmp = new_matrix()
+        ident( tmp )
+
+        stack = [ [x[:] for x in tmp] ]
+        screen = new_screen()
+        zbuffer = new_zbuffer()
+        tmp = []
+        step_3d = 100
+        consts = ''
+        coords = []
+        coords1 = []
+
         for command in commands:
+            knob = 1
+            
             print(command)
             c = command['op']
             args = command['args']
@@ -155,21 +154,21 @@ def run(filename):
             elif c == 'move':
                 if command['knob'] != None:
                     knob = frames[frame][command['knob']]
-                tmp = make_translate(args[0], args[1], args[2])
+                tmp = make_translate(args[0] * knob, args[1] * knob, args[2] * knob)
                 matrix_mult(stack[-1], tmp)
                 stack[-1] = [x[:] for x in tmp]
                 tmp = []
             elif c == 'scale':
                 if command['knob'] != None:
                     knob = frames[frame][command['knob']]
-                tmp = make_scale(args[0], args[1], args[2])
+                tmp = make_scale(args[0] * knob, args[1] * knob, args[2] * knob)
                 matrix_mult(stack[-1], tmp)
                 stack[-1] = [x[:] for x in tmp]
                 tmp = []
             elif c == 'rotate':
                 if command['knob'] != None:
                     knob = frames[frame][command['knob']]
-                theta = args[1] * (math.pi/180)
+                theta = args[1] * (math.pi/180) * knob
                 if args[0] == 'x':
                     tmp = make_rotX(theta)
                 elif args[0] == 'y':
@@ -188,6 +187,7 @@ def run(filename):
             elif c == 'save':
                 save_extension(screen, args[0])
             # end operation loop
+        print ("Frame ", frame, " done")
         frame += 1
         if(num_frames < 100):
             save_extension(screen, 'anim/' + name + '%02d'%frame)
