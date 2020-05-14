@@ -20,6 +20,7 @@ def first_pass( commands ):
     for c in commands:
         if c['op'] == 'vary' and num_frames == None:
             raise ('VARY FOUND BUT FRAME WAS NOT FOUND')
+	    return 
         if c['op'] == "basename":
             name = c['args'][0]
         if c['op'] == "frames":
