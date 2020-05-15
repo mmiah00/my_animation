@@ -2,7 +2,6 @@ import mdl
 from display import *
 from matrix import *
 from draw import *
-import copy
 
 """======== first_pass( commands ) ==========
   Checks the commands array for any animation commands
@@ -29,6 +28,9 @@ def first_pass( commands ):
     if name == '':
         name = 'default'
         print ("Basename not found. Setting name to [default]")
+
+    if num_frames == None:
+        return (name, 1)
     return (name, num_frames)
 
 """======== second_pass( commands ) ==========
@@ -51,7 +53,6 @@ def second_pass( commands, num_frames ):
         if c['op'] == 'vary':
             start_frame, end_frame, start_value, end_value = c['args']
             knob = c['knob']
-
             f = int (start_frame)
             d = (end_value - start_value) / (end_frame - start_frame)
             knob_now = start_value
@@ -192,9 +193,11 @@ def run(filename):
         print ("Frame ", frame, " done")
         frame += 1
         if(num_frames < 100):
-            save_extension(screen, 'anim/' + name + '%02d'%frame)
+            file = "anim\\" + name + '%02d'%frame
+            save_extension(screen, file)
         else:
-            save_extension(screen, 'anim/' + name + '%03d'%frame)
+            file = "anim\\" + name + '%03d'%frame
+            save_extension(screen, file)
 
     if(num_frames > 1):
         make_animation(name)
