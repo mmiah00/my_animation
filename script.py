@@ -192,12 +192,12 @@ def run(filename):
             # end operation loop
         print ("Frame ", frame, " done")
         frame += 1
-        if(num_frames < 100):
+        if num_frames < 100:
             file = "anim\\" + name + '%02d'%frame
-            save_extension(screen, file)
+            save_extension(screen, "anim/" + name + '%02d'%frame)
         else:
             file = "anim\\" + name + '%03d'%frame
-            save_extension(screen, file)
+            save_extension(screen, "anim/" + name + '%03d'%frame)
 
     if(num_frames > 1):
         make_animation(name)
