@@ -1,0 +1,13 @@
+//DW's model
+basename swing
+frames 50
+constants silver 0.2 0.7 0.1 0.2 0.7 0.1 0.2 0.7 0.1
+push
+move 250 250 0
+rotate x -30 k0
+push
+move 0 2 2 k0
+rotate y -30 k0
+box 0 0 0 100 50 50
+push
+vary k0 0 45 0 1
