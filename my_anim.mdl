@@ -56,7 +56,6 @@ box yellowy 100 12.5 0 10 25 25
 box yellowy 120 5 0 10 10 10
 pop
 push
-rotate x -360 k1
 box yellowy 10 45 0 10 90 90
 box yellowy 30 37.5 0 10 75 75
 box yellowy 50 30 0 10 60 60
@@ -66,4 +65,3 @@ box yellowy 110 7.5 0 10 15 15
 pop
 pop
 vary k0 0 99 0 1
-vary k1 0 99 0 0.5
