@@ -47,8 +47,8 @@ push
 move 250 100 0
 push
 sphere yellowy 0 0 100
-sphere yellowy 175 0 75
-sphere yellowy 225 0 50
+sphere yellowy 0 175 75
+sphere yellowy 0 225 50
 push
 move 75 175 0
 rotate z 30
